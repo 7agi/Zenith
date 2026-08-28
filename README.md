@@ -22,7 +22,7 @@ Zenith is a high-performance, Medal.tv-style clip recorder for Windows. It uses 
 1. Clone this repository with submodules:
    ```bash
    git clone --recursive <your-repo-url>
-   cd Zenith
+   cd Zenith 
    ```
    *If you already cloned without submodules, run: `git submodule update --init --recursive`*
 
