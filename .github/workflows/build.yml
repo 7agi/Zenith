@@ -1,0 +1,36 @@
+name: Build Zenith
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  release:
+    types: [created]
+
+jobs:
+  build-windows:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Configure OBS (libobs only, no UI)
+        run: |
+          cd third_party/obs-studio
+          cmake --preset windows-x64 -DENABLE_BROWSER=OFF -DENABLE_WEBSOCKET=OFF -DENABLE_UI=OFF
+
+      - name: Build OBS
+        run: cmake --build third_party/obs-studio/build_x64 --config RelWithDebInfo
+
+      - name: Configure Zenith
+        run: cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+      - name: Build Zenith
+        run: cmake --build build --config RelWithDebInfo
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zenith-win64
+          path: build/RelWithDebInfo/

@@ -1,0 +1,63 @@
+# Build directories
+build/
+build_x64/
+out/
+cmake-build-*/
+x64/
+x86/
+Debug/
+Release/
+RelWithDebInfo/
+MinSizeRel/
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Visual Studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.aps
+ipch/
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.opendb
+
+# OBS build artifacts (submodule)
+third_party/obs-studio/build_x64/
+third_party/obs-studio/.cmake/
+
+# Binaries
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.exp
+*.obj
+
+# Config / local state
+config.json
+*.log
+Recordings/
+Clips/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
