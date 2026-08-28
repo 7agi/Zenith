@@ -4,14 +4,14 @@ project(Zenith VERSION 1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Output binaries to the root build directory (e.g. build/RelWithDebInfo)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/Debug")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/Release")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${CMAKE_BINARY_DIR}/RelWithDebInfo")
-
 # Configure paths for the libobs submodule
 set(OBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/obs-studio/obs-studio")
+
+# Output binaries directly into the OBS rundir so it has access to all DLLs and plugins
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${OBS_DIR}/build_x64/rundir/RelWithDebInfo/bin/64bit")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${OBS_DIR}/build_x64/rundir/Debug/bin/64bit")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${OBS_DIR}/build_x64/rundir/Release/bin/64bit")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${OBS_DIR}/build_x64/rundir/RelWithDebInfo/bin/64bit")
 
 # We don't add_subdirectory(obs-studio) here because OBS's CMake is highly complex 
 # and best built independently. CI builds it first, then we link against its outputs.

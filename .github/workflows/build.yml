@@ -33,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Zenith-win64
-          path: build/RelWithDebInfo/
+          path: third_party/obs-studio/obs-studio/build_x64/rundir/RelWithDebInfo/
