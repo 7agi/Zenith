@@ -17,11 +17,11 @@ jobs:
 
       - name: Configure OBS (libobs only, no UI)
         run: |
-          cd third_party/obs-studio
+          cd third_party/obs-studio/obs-studio
           cmake --preset windows-x64 -DENABLE_BROWSER=OFF -DENABLE_WEBSOCKET=OFF -DENABLE_UI=OFF
 
       - name: Build OBS
-        run: cmake --build third_party/obs-studio/build_x64 --config RelWithDebInfo
+        run: cmake --build third_party/obs-studio/obs-studio/build_x64 --config RelWithDebInfo
 
       - name: Configure Zenith
         run: cmake -B build -DCMAKE_BUILD_TYPE=RelWithDebInfo

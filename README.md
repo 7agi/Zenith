@@ -30,10 +30,10 @@ Zenith is a high-performance, Medal.tv-style clip recorder for Windows. It uses 
 
 1. **Build the OBS backend (first time only, takes a while):**
    ```bash
-   cd third_party/obs-studio
+   cd third_party/obs-studio/obs-studio
    cmake --preset windows-x64 -DENABLE_BROWSER=OFF -DENABLE_WEBSOCKET=OFF -DENABLE_UI=OFF
    cmake --build build_x64 --config RelWithDebInfo
-   cd ../..
+   cd ../../..
    ```
 
 2. **Build Zenith:**

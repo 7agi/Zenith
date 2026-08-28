@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Configure paths for the libobs submodule
-set(OBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/obs-studio")
+set(OBS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party/obs-studio/obs-studio")
 
 # We don't add_subdirectory(obs-studio) here because OBS's CMake is highly complex 
 # and best built independently. CI builds it first, then we link against its outputs.
