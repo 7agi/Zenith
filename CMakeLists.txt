@@ -48,6 +48,11 @@ set(FT_DISABLE_HARFBUZZ ON CACHE BOOL "" FORCE)
 set(FT_DISABLE_BROTLI  ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(freetype)
 
+# Create ALIAS target so RmlUi's build system detects it instead of calling find_package
+if(TARGET freetype AND NOT TARGET Freetype::Freetype)
+    add_library(Freetype::Freetype ALIAS freetype)
+endif()
+
 # Fetch RmlUi (static, Win32 + DX11 backend included)
 set(BUILD_SHARED_LIBS        OFF CACHE BOOL "" FORCE)
 set(RMLUI_BACKEND_WIN32_DX11 ON  CACHE BOOL "" FORCE)
