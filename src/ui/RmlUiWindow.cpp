@@ -354,15 +354,10 @@ void RmlUiWindow::threadFunc() {
 
         // Event + render loop (runs while window is visible)
         while (!m_shouldExit && !m_shouldHide) {
-            // Pump messages without blocking so we can check m_shouldHide
-            MSG msg;
-            while (PeekMessageW(&msg, nullptr, 0, 0, PM_REMOVE)) {
-                if (msg.message == WM_QUIT) {
-                    m_shouldHide = true;
-                    break;
-                }
-                TranslateMessage(&msg);
-                DispatchMessageW(&msg);
+            // Let the backend process platform and user events
+            if (!Backend::ProcessEvents(m_rmlCtx)) {
+                m_shouldHide = true;
+                break;
             }
             if (m_shouldHide) break;
 
