@@ -34,10 +34,23 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
+# Fetch FreeType (required by RmlUi for font rendering)
+FetchContent_Declare(
+    freetype
+    GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
+    GIT_TAG        VER-2-13-3
+    GIT_SHALLOW    TRUE
+)
+set(FT_DISABLE_ZLIB    ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_BZIP2   ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_PNG     ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_HARFBUZZ ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_BROTLI  ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(freetype)
+
 # Fetch RmlUi (static, Win32 + DX11 backend included)
 set(BUILD_SHARED_LIBS        OFF CACHE BOOL "" FORCE)
 set(RMLUI_BACKEND_WIN32_DX11 ON  CACHE BOOL "" FORCE)
-set(RMLUI_FONT_ENGINE_FREETYPE OFF CACHE BOOL "" FORCE)  # use built-in freetype
 FetchContent_Declare(
     rmlui
     GIT_REPOSITORY https://github.com/mikke89/RmlUi.git

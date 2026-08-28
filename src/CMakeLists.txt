@@ -48,6 +48,7 @@ target_link_libraries(Zenith PRIVATE
     nlohmann_json::nlohmann_json
     RmlUi::RmlUi
     RmlUi::Debugger
+    freetype
     obs
     d2d1
     d3d11
