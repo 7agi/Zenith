@@ -102,6 +102,7 @@ private:
                               const std::vector<int>& vkeys);
     void startBinding(const std::string& elementId);
     void commitBinding();
+    void installEventListeners();
 
     static RmlUiWindow*     s_instance;
     static std::string      s_assetPath;
