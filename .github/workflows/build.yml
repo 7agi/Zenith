@@ -29,6 +29,9 @@ jobs:
       - name: Build Zenith
         run: cmake --build build --config RelWithDebInfo
 
+      - name: Copy OBS Dependencies
+        run: Copy-Item -Path "third_party/obs-studio/obs-studio/.deps/obs-deps-*-x64/bin/*.dll" -Destination "third_party/obs-studio/obs-studio/build_x64/rundir/RelWithDebInfo/bin/64bit/" -Force
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
