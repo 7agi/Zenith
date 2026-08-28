@@ -34,4 +34,19 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
+# Fetch RmlUi (static, Win32 + DX11 backend included)
+set(BUILD_SHARED_LIBS        OFF CACHE BOOL "" FORCE)
+set(RMLUI_BACKEND_WIN32_DX11 ON  CACHE BOOL "" FORCE)
+set(RMLUI_FONT_ENGINE_FREETYPE OFF CACHE BOOL "" FORCE)  # use built-in freetype
+FetchContent_Declare(
+    rmlui
+    GIT_REPOSITORY https://github.com/mikke89/RmlUi.git
+    GIT_TAG        6.1   # stable tagged release
+    GIT_SHALLOW    TRUE
+)
+FetchContent_MakeAvailable(rmlui)
+
+# The backend header (RmlUi_Backend.h) lives inside the fetched source
+include_directories("${rmlui_SOURCE_DIR}/Backends")
+
 add_subdirectory(src)

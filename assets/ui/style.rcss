@@ -1,0 +1,346 @@
+/* ============================================================
+   Zenith – settings.rcss
+   Dark glassmorphism theme, Inter font
+   ============================================================ */
+
+/* ---- Global Reset ---- */
+body {
+    font-family: Inter, sans-serif;
+    font-size: 14dp;
+    color: #e2e8f0;
+    background: transparent;
+}
+
+/* ---- Window Card ---- */
+#window {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 720dp;
+    height: 580dp;
+    background-color: rgba(15, 20, 35, 0.96);
+    border: 1dp solid rgba(99, 120, 200, 0.25);
+    border-radius: 14dp;
+    box-shadow: 0 24dp 64dp rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* ---- Title Bar ---- */
+#titlebar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 14dp 20dp;
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.08));
+    border-bottom: 1dp solid rgba(99, 120, 200, 0.15);
+    height: 56dp;
+}
+
+#logo {
+    font-size: 22dp;
+    font-weight: bold;
+    letter-spacing: 1dp;
+    margin-right: 24dp;
+}
+
+.logo-z {
+    color: #818cf8;
+}
+.logo-text {
+    color: #e2e8f0;
+}
+
+#close-btn {
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-size: 18dp;
+    cursor: pointer;
+    padding: 4dp 8dp;
+    border-radius: 6dp;
+}
+#close-btn:hover {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.12);
+}
+
+/* ---- Tab Bar ---- */
+#tabs {
+    display: flex;
+    flex-direction: row;
+    gap: 4dp;
+}
+
+.tab {
+    background: transparent;
+    border: none;
+    border-bottom: 2dp solid transparent;
+    color: #64748b;
+    font-size: 13dp;
+    padding: 6dp 14dp;
+    cursor: pointer;
+    border-radius: 6dp 6dp 0 0;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.tab:hover {
+    color: #a5b4fc;
+}
+
+.tab.active {
+    color: #818cf8;
+    border-bottom: 2dp solid #818cf8;
+    background: rgba(129, 140, 248, 0.08);
+}
+
+/* ---- Content Panels ---- */
+.tab-panel {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28dp 32dp;
+}
+
+.tab-panel.hidden {
+    display: none;
+}
+
+.tab-panel h2 {
+    font-size: 18dp;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin: 0 0 24dp 0;
+}
+
+/* ---- Field Groups ---- */
+.field-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18dp;
+}
+
+.field-label {
+    font-size: 12dp;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5dp;
+    margin-bottom: 6dp;
+}
+
+.field-hint {
+    font-size: 11dp;
+    color: #475569;
+    margin-top: 4dp;
+}
+
+/* ---- Inputs ---- */
+input[type=text],
+input[type=number] {
+    background: rgba(30, 38, 60, 0.8);
+    border: 1dp solid rgba(99, 120, 200, 0.2);
+    border-radius: 8dp;
+    color: #e2e8f0;
+    font-size: 14dp;
+    padding: 8dp 12dp;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+}
+
+input[type=text]:focus,
+input[type=number]:focus {
+    border-color: rgba(129, 140, 248, 0.6);
+    background: rgba(30, 38, 60, 0.95);
+}
+
+/* ---- Select ---- */
+select {
+    background: rgba(30, 38, 60, 0.8);
+    border: 1dp solid rgba(99, 120, 200, 0.2);
+    border-radius: 8dp;
+    color: #e2e8f0;
+    font-size: 14dp;
+    padding: 8dp 12dp;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ---- Toggle Switch ---- */
+.toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    width: 44dp;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle-slider {
+    width: 44dp;
+    height: 24dp;
+    background: rgba(51, 65, 85, 0.8);
+    border-radius: 12dp;
+    position: relative;
+    transition: background 0.2s;
+}
+
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    left: 3dp;
+    top: 3dp;
+    width: 18dp;
+    height: 18dp;
+    background: #94a3b8;
+    border-radius: 9dp;
+    transition: left 0.2s, background 0.2s;
+}
+
+.toggle input:checked ~ .toggle-slider {
+    background: rgba(129, 140, 248, 0.5);
+}
+
+.toggle input:checked ~ .toggle-slider::before {
+    left: 23dp;
+    background: #818cf8;
+}
+
+/* ---- Hotkey Input Boxes ---- */
+.hotkey-input {
+    background: rgba(30, 38, 60, 0.8);
+    border: 1dp solid rgba(99, 120, 200, 0.2);
+    border-radius: 8dp;
+    color: #e2e8f0;
+    font-size: 13dp;
+    padding: 8dp 12dp;
+    cursor: pointer;
+    min-height: 36dp;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.hotkey-input:hover {
+    border-color: rgba(129, 140, 248, 0.4);
+}
+
+.hotkey-input.binding {
+    border-color: #818cf8;
+    background: rgba(129, 140, 248, 0.1);
+    color: #a5b4fc;
+}
+
+/* ---- Section Header ---- */
+.section-header {
+    font-size: 13dp;
+    font-weight: 700;
+    color: #818cf8;
+    text-transform: uppercase;
+    letter-spacing: 1dp;
+    margin-bottom: 14dp;
+}
+
+/* ---- Inline Row (side-by-side inputs) ---- */
+.inline-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8dp;
+}
+
+.inline-row input {
+    flex: 1;
+    width: auto;
+}
+
+.separator {
+    color: #475569;
+    font-size: 16dp;
+    padding: 0 4dp;
+}
+
+/* ---- Divider ---- */
+.divider {
+    height: 1dp;
+    background: rgba(99, 120, 200, 0.12);
+    margin: 20dp 0;
+}
+
+/* ---- Footer ---- */
+#footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12dp 24dp;
+    border-top: 1dp solid rgba(99, 120, 200, 0.12);
+    background: rgba(10, 14, 26, 0.5);
+    height: 54dp;
+}
+
+#footer-actions {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 12dp;
+}
+
+/* ---- Buttons ---- */
+.btn-primary {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 8dp;
+    color: white;
+    font-size: 13dp;
+    font-weight: 600;
+    padding: 9dp 22dp;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.btn-primary:hover {
+    opacity: 0.88;
+}
+
+.btn-secondary {
+    background: rgba(30, 38, 60, 0.6);
+    border: 1dp solid rgba(99, 120, 200, 0.2);
+    border-radius: 8dp;
+    color: #94a3b8;
+    font-size: 13dp;
+    padding: 9dp 22dp;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-secondary:hover {
+    border-color: rgba(129, 140, 248, 0.4);
+    color: #e2e8f0;
+}
+
+/* ---- Status Indicator ---- */
+#status-indicator {
+    font-size: 11dp;
+    font-weight: 700;
+    letter-spacing: 1.5dp;
+    padding: 4dp 10dp;
+    border-radius: 6dp;
+}
+
+.status-idle {
+    color: #64748b;
+    background: rgba(100, 116, 139, 0.12);
+}
+
+.status-buffering {
+    color: #fb923c;
+    background: rgba(251, 146, 60, 0.12);
+}
+
+.status-recording {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.12);
+}

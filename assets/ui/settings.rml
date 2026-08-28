@@ -1,0 +1,224 @@
+<!DOCTYPE rml>
+<html>
+<head>
+    <title>Zenith Settings</title>
+    <link type="text/rcss" href="style.rcss"/>
+</head>
+<body>
+    <div id="window">
+        <div id="titlebar">
+            <div id="logo">
+                <span class="logo-z">Z</span><span class="logo-text">enith</span>
+            </div>
+            <nav id="tabs">
+                <button class="tab active" id="tab-capture"   onclick="switchTab('capture')">Capture</button>
+                <button class="tab"        id="tab-recording" onclick="switchTab('recording')">Recording</button>
+                <button class="tab"        id="tab-video"     onclick="switchTab('video')">Video</button>
+                <button class="tab"        id="tab-overlays"  onclick="switchTab('overlays')">Overlays</button>
+                <button class="tab"        id="tab-hotkeys"   onclick="switchTab('hotkeys')">Hotkeys</button>
+            </nav>
+            <button id="close-btn" onclick="closeWindow()">✕</button>
+        </div>
+
+        <!-- ===== CAPTURE TAB ===== -->
+        <div class="tab-panel" id="panel-capture">
+            <h2>Capture Settings</h2>
+
+            <div class="field-group">
+                <label class="field-label">Capture Method</label>
+                <select id="capture-method" data-model="captureMethod">
+                    <option value="0">DXGI Desktop Duplication  (No yellow border)</option>
+                    <option value="1">Game Capture  (Auto-hooks process)</option>
+                    <option value="2">Windows Graphics Capture  (WGC)</option>
+                </select>
+                <p class="field-hint">DXGI is recommended for most users. Game Capture works best for fullscreen games.</p>
+            </div>
+
+            <div class="field-group" id="monitor-group">
+                <label class="field-label">Monitor Index</label>
+                <input type="number" id="monitor-index" data-model="monitorIndex" min="0" max="8"/>
+                <p class="field-hint">0 = primary monitor.</p>
+            </div>
+
+            <div class="field-group" id="game-exe-group">
+                <label class="field-label">Target Process</label>
+                <input type="text" id="target-exe" data-model="gameCaptureExe" placeholder="e.g. RiotClientServices.exe"/>
+                <p class="field-hint">Only used for Game Capture mode.</p>
+            </div>
+        </div>
+
+        <!-- ===== RECORDING TAB ===== -->
+        <div class="tab-panel hidden" id="panel-recording">
+            <h2>Recording Settings</h2>
+
+            <div class="field-group">
+                <label class="field-label">Recording Mode</label>
+                <select id="recording-mode" data-model="recordingMode">
+                    <option value="0">Manual Record  (Hotkey to start/stop)</option>
+                    <option value="1">Always On  (Clip + Manual)</option>
+                    <option value="2">Clip Only  (Shadowplay-style buffer)</option>
+                    <option value="3">Record Only</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Clip Duration (seconds)</label>
+                <input type="number" id="clip-duration" data-model="clipDurationSecs" min="10" max="600"/>
+                <p class="field-hint">How many seconds to keep in the rolling buffer.</p>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Output Folder</label>
+                <input type="text" id="output-folder" data-model="outputDirectory" placeholder="(Default: Videos\Zenith)"/>
+            </div>
+        </div>
+
+        <!-- ===== VIDEO TAB ===== -->
+        <div class="tab-panel hidden" id="panel-video">
+            <h2>Video &amp; Audio</h2>
+
+            <div class="field-group">
+                <label class="field-label">Resolution</label>
+                <div class="inline-row">
+                    <input type="number" id="video-width"  data-model="videoWidth"  placeholder="Width"  min="640"  max="7680"/>
+                    <span class="separator">×</span>
+                    <input type="number" id="video-height" data-model="videoHeight" placeholder="Height" min="360"  max="4320"/>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Frame Rate (FPS)</label>
+                <input type="number" id="video-fps" data-model="videoFps" min="24" max="240"/>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Video Bitrate (kbps)</label>
+                <input type="number" id="video-bitrate" data-model="videoBitrateKbps" min="1000" max="100000"/>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Video Encoder</label>
+                <select id="video-encoder" data-model="videoEncoder">
+                    <option value="auto">Auto (GPU Preferred)</option>
+                    <option value="jim_nvenc">NVIDIA NVENC H.264</option>
+                    <option value="h264_texture_amf">AMD AMF H.264</option>
+                    <option value="obs_qsv11">Intel QuickSync H.264</option>
+                    <option value="obs_x264">CPU x264 (Slow)</option>
+                </select>
+            </div>
+
+            <div class="divider"/>
+
+            <div class="field-group">
+                <label class="field-label">Audio Bitrate (kbps)</label>
+                <input type="number" id="audio-bitrate" data-model="audioBitrateKbps" min="64" max="320"/>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Capture Desktop Audio</label>
+                <label class="toggle">
+                    <input type="checkbox" id="audio-desktop" data-model="audioCaptureDesktop"/>
+                    <span class="toggle-slider"/>
+                </label>
+            </div>
+
+            <div class="field-group">
+                <label class="field-label">Capture Microphone</label>
+                <label class="toggle">
+                    <input type="checkbox" id="audio-mic" data-model="audioCaptureMic"/>
+                    <span class="toggle-slider"/>
+                </label>
+            </div>
+        </div>
+
+        <!-- ===== OVERLAYS TAB ===== -->
+        <div class="tab-panel hidden" id="panel-overlays">
+            <h2>Overlays</h2>
+
+            <div class="section-header">Camera Overlay</div>
+            <div class="field-group">
+                <label class="field-label">Enable Camera</label>
+                <label class="toggle">
+                    <input type="checkbox" id="camera-enabled" data-model="cameraEnabled"/>
+                    <span class="toggle-slider"/>
+                </label>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Position (X, Y)</label>
+                <div class="inline-row">
+                    <input type="number" id="camera-x" data-model="cameraPosX" placeholder="X"/>
+                    <span class="separator">,</span>
+                    <input type="number" id="camera-y" data-model="cameraPosY" placeholder="Y"/>
+                </div>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Size (W × H)</label>
+                <div class="inline-row">
+                    <input type="number" id="camera-w" data-model="cameraWidth"  placeholder="W"/>
+                    <span class="separator">×</span>
+                    <input type="number" id="camera-h" data-model="cameraHeight" placeholder="H"/>
+                </div>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Rotation (°)</label>
+                <input type="number" id="camera-rot" data-model="cameraRotation" min="0" max="360"/>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Flip Horizontal</label>
+                <label class="toggle">
+                    <input type="checkbox" id="camera-fliph" data-model="cameraFlipH"/>
+                    <span class="toggle-slider"/>
+                </label>
+            </div>
+
+            <div class="divider"/>
+
+            <div class="section-header">Key Overlay</div>
+            <div class="field-group">
+                <label class="field-label">Enable Key Overlay</label>
+                <label class="toggle">
+                    <input type="checkbox" id="key-enabled" data-model="keyOverlayEnabled"/>
+                    <span class="toggle-slider"/>
+                </label>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Keys to display</label>
+                <input type="text" id="key-list" data-model="keyOverlayKeys" placeholder="e.g. Z, X, SPACE"/>
+                <p class="field-hint">Comma-separated key names. Defaults to Z, X.</p>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Key Size (px)</label>
+                <input type="number" id="key-size" data-model="keyOverlayKeySize" min="16" max="128"/>
+            </div>
+        </div>
+
+        <!-- ===== HOTKEYS TAB ===== -->
+        <div class="tab-panel hidden" id="panel-hotkeys">
+            <h2>Hotkeys</h2>
+            <p class="field-hint" style="margin-bottom: 20dp;">Click a field, then press your desired key combination to bind it.</p>
+
+            <div class="field-group">
+                <label class="field-label">Save Clip</label>
+                <div class="hotkey-input" id="hk-clip-save"    data-model="hotkeyClipSave"    onclick="startBinding('hk-clip-save')"    tabindex="0">(not set)</div>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Start / Stop Recording</label>
+                <div class="hotkey-input" id="hk-record-toggle" data-model="hotkeyRecordToggle" onclick="startBinding('hk-record-toggle')" tabindex="0">(not set)</div>
+            </div>
+            <div class="field-group">
+                <label class="field-label">Toggle Key Overlay</label>
+                <div class="hotkey-input" id="hk-overlay-toggle" data-model="hotkeyOverlayToggle" onclick="startBinding('hk-overlay-toggle')" tabindex="0">(not set)</div>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div id="footer">
+            <div id="status-indicator" class="status-idle">● IDLE</div>
+            <div id="footer-actions">
+                <button class="btn-secondary" onclick="discardChanges()">Discard</button>
+                <button class="btn-primary"   onclick="applySettings()">Save &amp; Apply</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

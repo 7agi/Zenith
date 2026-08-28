@@ -4,7 +4,7 @@
 #include "recorder/Recorder.h"
 #include "overlay/OverlayManager.h"
 #include "ui/TrayIcon.h"
-#include "ui/SettingsWindow.h"
+#include "ui/RmlUiWindow.h"
 #include "ui/StatusBar.h"
 #include <obs.h>
 
@@ -19,7 +19,7 @@ static HotkeyManager g_hotkeys;
 static Recorder g_recorder;
 static OverlayManager g_overlays;
 static TrayIcon g_tray;
-static SettingsWindow g_settings;
+static RmlUiWindow g_settings;
 static StatusBar g_status;
 
 // ---------------------------------------------------------------------------
@@ -35,10 +35,13 @@ void updateStatusBarColor() {
     RecorderState st = g_recorder.state();
     if (st == RecorderState::RECORDING || st == RecorderState::BUFFERING_RECORDING) {
         g_status.setColor(0xFFFF0000); // Red
+        g_settings.setStatus("status-recording", "● RECORDING");
     } else if (st == RecorderState::BUFFERING) {
         g_status.setColor(0xFFFFA500); // Orange
+        g_settings.setStatus("status-buffering", "● BUFFERING");
     } else {
         g_status.setColor(0xFF808080); // Gray (Idle)
+        g_settings.setStatus("status-idle", "● IDLE");
     }
 }
 
@@ -110,12 +113,16 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int) {
     if (g_config.hotkeys.clipSave.vkeys.empty()) g_config.save(); // write defaults if fresh
 
     // 3. UI Init
+    // RmlUi must be initialized before creating the window
+    std::string assetPath = "ui"; // relative to exe location, copied by CMake post-build
+    RmlUiWindow::initRml(hInst, assetPath);
+
     // TODO: load actual icon from resources
     g_tray.init(hMainWnd, WM_TRAYICON, LoadIcon(nullptr, IDI_APPLICATION));
     g_tray.onSettingsClicked = []() { g_settings.show(); };
     g_tray.onExitClicked     = [hMainWnd]() { PostMessage(hMainWnd, WM_CLOSE, 0, 0); };
 
-    g_settings.create(hInst, nullptr, g_config);
+    g_settings.create(hInst, g_config);
     g_settings.onApplyConfig = [](const Config& cfg) {
         g_config = cfg;
         g_config.save();
@@ -169,6 +176,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int) {
     g_hotkeys.uninstall();
     g_overlays.shutdown();
     g_recorder.shutdown();
-    
+    g_settings.destroy();
+    RmlUiWindow::shutdownRml();
+
     return 0;
 }
