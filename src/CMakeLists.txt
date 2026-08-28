@@ -23,7 +23,7 @@ file(GLOB OBS_DEPS_DIRS "${OBS_DIR}/.deps/obs-deps-*-x64")
 if(OBS_DEPS_DIRS)
     list(GET OBS_DEPS_DIRS 0 OBS_DEPS_DIR)
     target_include_directories(Zenith PRIVATE "${OBS_DEPS_DIR}/include")
-    target_link_directories(Zenith PRIVATE "${OBS_DEPS_DIR}/bin")
+    target_link_directories(Zenith PRIVATE "${OBS_DEPS_DIR}/lib")
     
     # ClipSaver uses FFmpeg directly
     target_link_libraries(Zenith PRIVATE avformat avcodec avutil)
