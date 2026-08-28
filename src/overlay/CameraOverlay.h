@@ -4,9 +4,11 @@
 
 // Forward-declare OBS types
 struct obs_source;
-struct obs_sceneitem;
+struct obs_scene_item;
+struct obs_scene;
 typedef struct obs_source obs_source_t;
-typedef struct obs_sceneitem obs_sceneitem_t;
+typedef struct obs_scene_item obs_sceneitem_t;
+typedef struct obs_scene obs_scene_t;
 
 namespace zenith {
 
@@ -31,7 +33,7 @@ public:
     CameraOverlay& operator=(const CameraOverlay&) = delete;
 
     // Initialize the camera source and add it to the given scene.
-    bool init(struct obs_scene* scene, const CameraOverlayConfig& cfg);
+    bool init(obs_scene_t* scene, const CameraOverlayConfig& cfg);
     void shutdown();
 
     // Enable/disable visibility in the scene.
@@ -46,7 +48,7 @@ private:
     void applyTransform();
     void recreateSource();
 
-    struct obs_scene*   m_scene      = nullptr;
+    obs_scene_t*        m_scene      = nullptr;
     obs_source_t*       m_camSource  = nullptr;
     obs_sceneitem_t*    m_sceneItem  = nullptr;
 

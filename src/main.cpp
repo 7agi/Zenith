@@ -6,6 +6,7 @@
 #include "ui/TrayIcon.h"
 #include "ui/SettingsWindow.h"
 #include "ui/StatusBar.h"
+#include <obs.h>
 
 // Define WM_APP for Tray callback
 #define WM_TRAYICON (WM_APP + 1)
@@ -112,7 +113,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int) {
     // TODO: load actual icon from resources
     g_tray.init(hMainWnd, WM_TRAYICON, LoadIcon(nullptr, IDI_APPLICATION));
     g_tray.onSettingsClicked = []() { g_settings.show(); };
-    g_tray.onExitClicked     = []() { PostMessage(hMainWnd, WM_CLOSE, 0, 0); };
+    g_tray.onExitClicked     = [hMainWnd]() { PostMessage(hMainWnd, WM_CLOSE, 0, 0); };
 
     g_settings.create(hInst, nullptr, g_config);
     g_settings.onApplyConfig = [](const Config& cfg) {
