@@ -52,6 +52,7 @@ target_link_libraries(Zenith PRIVATE
     obs
     d2d1
     d3d11
+    d3dcompiler
     dxgi
     dwrite
     shell32
