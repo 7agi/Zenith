@@ -53,13 +53,13 @@ if(TARGET freetype AND NOT TARGET Freetype::Freetype)
     add_library(Freetype::Freetype ALIAS freetype)
 endif()
 
-# Fetch RmlUi (static, Win32 + DX11 backend included)
+# Fetch RmlUi (static, Win32 + DX11 backend included from PR fork)
 set(BUILD_SHARED_LIBS        OFF CACHE BOOL "" FORCE)
 set(RMLUI_BACKEND_WIN32_DX11 ON  CACHE BOOL "" FORCE)
 FetchContent_Declare(
     rmlui
-    GIT_REPOSITORY https://github.com/mikke89/RmlUi.git
-    GIT_TAG        6.1   # stable tagged release
+    GIT_REPOSITORY https://github.com/hyblocker/RmlUi.git
+    GIT_TAG        dx11-backend
     GIT_SHALLOW    TRUE
 )
 FetchContent_MakeAvailable(rmlui)
